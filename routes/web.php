@@ -15,16 +15,18 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/keygen', function() {
-    echo str_random(32);
+$router->group(['prefix' => 'api'], function () use ($router)
+{
+	$router->get('/companies', 'CompaniesController@index');	
+	$router->post('/companies', 'CompaniesController@store');
+	$router->get('/companies/{id:[1-9]+}', 'CompaniesController@show');
+	$router->put('/companies/{id}', 'CompaniesController@update');
+	$router->delete('/companies/{id:[1-9]+}', 'CompaniesController@destroy');	
 });
 
 
-$router->get('/companies', 'CompaniesController@showAllCompanies');
-$router->get('/companies/{id}', 'CompaniesController@getCompanyById');
-
-$router->get('/companies/types/{type}', 'CompaniesController@getCompanyByType');
+/*$router->get('/companies/types/{type}', 'CompaniesController@getCompanyByType');
 
 $router->get('/employees','EmployeesController@showAllEmployees');
 $router->get('/employees/{id}', 'EmployeesController@showEmployeeById');
-$router->get('/employees?job={job}', 'EmployeesController@showEmployeeByJob');
+$router->get('/employees?job={job}', 'EmployeesController@showEmployeeByJob');*/

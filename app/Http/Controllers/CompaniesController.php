@@ -16,29 +16,87 @@ class CompaniesController extends Controller
         //
     }
 
+	public function index()
+    {
+        return response()->json(Company::showAllCompanies());
+    }
+
     /**
-     * Return all companies
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function showAllCompanies(){
+    public function create()
+    {
 
-        $companies = Company::all();
-        
-        return json_encode($companies);
     }
 
-    public function getCompanyById($id){
-        // $company = Company::getById($id);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required'
+        ]);
 
-        $company = Company::find($id);
-
-
-        // return json_encode($company);
+        $company = Company::create($request->all());
+        return response()->json($company, 201);
     }
 
-    public function getCompanyByType($type){
-        echo 2;
-        $companies = Company::where('type',$type)->get();
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return response()->json(Company::find($id));       
+    }
 
-        // return json_encode($companies);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $company = Product::find($id);
+
+        $company->name = $request->input('name');
+        $company->description = $request->input('description');
+        $company->save();
+
+        return response()->json($company, 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Company::find($id)->delete();
+        return response('company deleted', 200);
     }
 }

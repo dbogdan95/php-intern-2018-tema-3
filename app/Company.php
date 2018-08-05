@@ -12,7 +12,7 @@ class Company extends Model {
      * @var array
      */
     protected $fillable = [
-        
+        'name', 'description'
     ];
 
     /**
@@ -24,46 +24,9 @@ class Company extends Model {
 
     ];
 
-    public static function getAll(){
-        $companies = [ 'companies' =>
-            [
-                [
-                    'type'=> 'market',
-                    'name'=> 'Kaufland',
-                ],
-                [
-                    'type'=> 'market',
-                    'name'=> 'Lidl',
-                ],
-                [
-                    'type'=> 'market',
-                    'name'=> 'Bila',
-                ]
-            ]
-        ];
-
+    public static function showAllCompanies()
+    {
+        $companies = Company::where('id', '>', 0)->get();
         return $companies;
-    }
-
-    public static function getById($id){
-        $companies = [
-            'companies' =>
-            [
-                [
-                    'type'=> 'market',
-                    'name'=> 'Kaufland',
-                ],
-                [
-                    'type'=> 'market',
-                    'name'=> 'Lidl',
-                ],
-                [
-                    'type'=> 'market',
-                    'name'=> 'Bila',
-                ]
-            ]
-        ];
-
-        return $companies['companies'][$id];
     }
 }
