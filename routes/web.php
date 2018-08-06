@@ -18,10 +18,11 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router)
 {
 	$router->get('/companies', 'CompaniesController@index');	
+	$router->get('/companies/{id}/employees', 'CompaniesController@employees');	
 	$router->post('/companies', 'CompaniesController@store');
-	$router->get('/companies/{id:[1-9]+}', 'CompaniesController@show');
+	$router->get('/companies/{id}', 'CompaniesController@show');
 	$router->put('/companies/{id}', 'CompaniesController@update');
-	$router->delete('/companies/{id:[1-9]+}', 'CompaniesController@destroy');	
+	$router->delete('/companies/{id:[1-9]+}', 'CompaniesController@destroy');
 });
 
 

@@ -79,7 +79,7 @@ class CompaniesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $company = Product::find($id);
+        $company = Company::find($id);
 
         $company->name = $request->input('name');
         $company->description = $request->input('description');
@@ -98,5 +98,11 @@ class CompaniesController extends Controller
     {
         Company::find($id)->delete();
         return response('company deleted', 200);
+    }
+
+    public function employees($id)
+    {
+        $company = Company::find($id);        
+        return response()->json($company->showAllEmployees(), 200);
     }
 }

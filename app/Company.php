@@ -29,4 +29,9 @@ class Company extends Model {
         $companies = Company::where('id', '>', 0)->get();
         return $companies;
     }
+
+    public function showAllEmployees()
+    {
+        return Employee::where('company_id', '=', $this->getKey())->get();
+    }    
 }
