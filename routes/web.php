@@ -25,6 +25,9 @@ $router->group(['prefix' => 'api'], function () use ($router)
 	$router->delete('/companies/{id:[1-9]+}', 'CompaniesController@destroy');
 });
 
+$router->delete('/employees/{id}', 'EmployeesController@destroy');
+$router->post('/employees', 'EmployeesController@store');
+$router->put('/employees/{id}', 'EmployeesController@update');
 
 /*$router->get('/companies/types/{type}', 'CompaniesController@getCompanyByType');
 
